@@ -15,7 +15,7 @@ module.exports = {
           model: "Users",
           key: "id",
           onUpdate: "CASCADE",
-          onDelete: "SET NULL",
+          onDelete: "CASCADE",
         },
       },
       productId: {
@@ -24,7 +24,7 @@ module.exports = {
           model: "Products",
           key: "id",
           onUpdate: "CASCADE",
-          onDelete: "SET NULL",
+          onDelete: "CASCADE",
         },
       },
       commentContent: {

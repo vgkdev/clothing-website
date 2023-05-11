@@ -3,11 +3,12 @@ import {
   editUserService,
   loginUserService,
   registerUserService,
+  verifyUserService,
 } from "../api/userApi";
 
 const initialState = {
   loading: false,
-  user: JSON.parse(localStorage.getItem("UserToken")) || null,
+  user: null,
   error: null,
 };
 
@@ -80,7 +81,7 @@ export const {
 export const loginUser = (data, toast, navigate) => async (dispatch) => {
   dispatch(loginStart());
   const response = await loginUserService(data);
-  //   console.log("check res login user from redux: ", response);
+  console.log("check res login user from redux: ", response);
   if (response.data.errCode === 0) {
     dispatch(loginSuccess(response.data.user));
     localStorage.setItem("UserToken", JSON.stringify(response.data.user));
@@ -89,6 +90,18 @@ export const loginUser = (data, toast, navigate) => async (dispatch) => {
   } else {
     dispatch(loginFailure(response.data.message));
     toast.error(response.data.message);
+  }
+};
+
+export const verifyUser = (data) => async (dispatch) => {
+  dispatch(loginStart());
+  const response = await verifyUserService(data);
+  // console.log("check res login user from redux: ", response);
+  if (response.data.errCode === 0) {
+    dispatch(loginSuccess(response.data.user));
+    localStorage.setItem("UserToken", JSON.stringify(response.data.user));
+  } else {
+    dispatch(loginFailure(response.data.message));
   }
 };
 

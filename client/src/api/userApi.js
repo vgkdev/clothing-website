@@ -25,6 +25,10 @@ const loginUserService = (data) => {
   return axios.post(`${dataUrl}/login`, data);
 };
 
+const verifyUserService = (data) => {
+  return axios.post(`${dataUrl}/verify-user`, data);
+};
+
 const registerUserService = (data) => {
   return axios.post(`${dataUrl}/register`, data);
 };
@@ -35,5 +39,6 @@ export {
   editUserService,
   deleteUserService,
   loginUserService,
+  verifyUserService,
   registerUserService,
 };

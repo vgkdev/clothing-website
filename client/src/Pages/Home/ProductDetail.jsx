@@ -201,7 +201,7 @@ const ProductDetail = () => {
               </HStack>
 
               <Button
-                bgColor={"#6bc6d9"}
+                bgColor={"#ffffff"}
                 color={"#ffffff"}
                 onClick={handleAddToCart}
                 mb={4}
@@ -212,7 +212,7 @@ const ProductDetail = () => {
               </Button>
               <Button
                 onClick={handleAddFavoriteList}
-                bgColor={"#6bc6d9"}
+                bgColor={"#ffffff"}
                 color={"#ffffff"}
                 mb={4}
               >
@@ -234,7 +234,7 @@ const ProductDetail = () => {
           />
           <Button
             onClick={handleSubmitComment}
-            bgColor={"#6bc6d9"}
+            bgColor={"#ffffff"}
             color={"#ffffff"}
           >
             Gửi

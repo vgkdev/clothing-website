@@ -36,7 +36,7 @@ const Serum = () => {
       <Text
         textAlign="center"
         fontSize="21px"
-        textDecoration="underline 2px #6bc6d9"
+        textDecoration="underline 2px #ffffff"
         fontWeight="semibold"
         margin="15px"
       >

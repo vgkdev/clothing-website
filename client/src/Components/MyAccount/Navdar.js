@@ -19,6 +19,7 @@ import {
   InputRightElement,
   IconButton,
   Flex,
+  Divider,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../reducers/user";
@@ -65,13 +66,25 @@ export default function Navdar() {
   };
 
   return (
-    <div className="mid_nav_main" style={{ backgroundColor: "#6bc6d9" }}>
+    <div
+      className="mid_nav_main"
+      style={{
+        backgroundColor: "#ffffff",
+        // borderBottom: "1px solid black"
+      }}
+    >
       <div className="mid_nav_mid">
         <div className="mid_nav_first">
           {/* logo */}
           <div style={{ width: "30%", paddingLeft: "5%", marginTop: "-15px" }}>
             <Link to={"/"}>
-              <Image alt="logo" objectFit={"contain"} src={logo1} />{" "}
+              <Image
+                h={"70px"}
+                // w={"220px"}
+                alt="logo"
+                objectFit={"contain"}
+                src={logo1}
+              />{" "}
             </Link>
           </div>
           {/* end logo */}
@@ -181,13 +194,13 @@ export default function Navdar() {
         {/* user */}
         <div className="mid_nav_sec">
           <Button
-            backgroundColor={"#6bc6d9"}
+            backgroundColor={"#ffffff"}
             onClick={() => navigate("/favorite-list")}
           >
             <div
               style={{
                 fontSize: "20px",
-                color: "#ffffff",
+                color: "#000000",
               }}
             >
               <BsSuitHeartFill />
@@ -195,11 +208,11 @@ export default function Navdar() {
           </Button>
 
           <Menu autoSelect={false}>
-            <MenuButton backgroundColor={"#6bc6d9"} as={Button}>
+            <MenuButton backgroundColor={"#ffffff"} as={Button}>
               <div
                 style={{
                   fontSize: "20px",
-                  color: "#ffffff",
+                  color: "#000000",
                 }}
               >
                 <BsPersonFill />
@@ -269,60 +282,15 @@ export default function Navdar() {
             </Box>
           </Menu>
           {user ? <Text fontWeight={"bold"}>{userNmae}</Text> : ""}
-          {/* <div style={{ display: "flex", cursor: "pointer" }}>
-            <div
-              className="user_div"
-              onClick={() => setloginDropDown(!loginDropDown)}
-            >
-              <BsPersonFill />
-            </div>
-            {loginDropDown ? (
-              <>
-                <div id="content_dropdown">
-                  {user ? (
-                    <div
-                      id="register_dropdown"
-                      onClick={() => {
-                        setloginDropDown(!loginDropDown);
-                        localStorage.removeItem("UserToken");
-                        dispatch(logoutUser());
-                      }}
-                    >
-                      Log Out
-                    </div>
-                  ) : (
-                    <>
-                      <Link to="/login">
-                        <div
-                          id="login_dropdown"
-                          onClick={() => setloginDropDown(!loginDropDown)}
-                        >
-                          Login
-                        </div>
-                      </Link>
-                      <Link to="/signup">
-                        <div
-                          id="register_dropdown"
-                          onClick={() => setloginDropDown(!loginDropDown)}
-                        >
-                          Register
-                        </div>
-                      </Link>
-                    </>
-                  )}
-                </div>
-              </>
-            ) : null}
-            <div
-              className="text"
-              style={{ marginTop: "9px", marginLeft: "9px" }}
-            >
-              {user ? <Text fontWeight={"bold"}>{userNmae}</Text> : ""}
-            </div>
-          </div> */}
         </div>
         {/* end user */}
       </div>
+      <Divider
+        mt="5px"
+        mb="3px"
+        orientation="horizontal"
+        // style={{ color: "red", size: "20" }}
+      />
     </div>
   );
 }

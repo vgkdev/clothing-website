@@ -14,7 +14,7 @@ const Footer = () => {
     <div>
       <>
         <Box
-          bg="#6bc6d9"
+          bg="#ffffff"
           className="FooterMainBox"
           // border={{ base: "1px solid #000000", md: "3px solid #000000" }}
           py={5}

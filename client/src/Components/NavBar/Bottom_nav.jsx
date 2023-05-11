@@ -4,9 +4,7 @@ import { GiShoppingBag } from "react-icons/gi";
 import { NavSingle } from "./navSingle";
 import { Link } from "react-router-dom";
 import "./cart.css";
-import { Image } from "@chakra-ui/react";
-import skinCareIcon from "../../assets/images/skincare-icon.jpg";
-import { TbVaccineBottle } from "react-icons/tb";
+import { GiClothes } from "react-icons/gi";
 export const BottomNav = (props) => {
   const { serumProducts, skinProducts, cleanProducts, personalProducts } =
     props;
@@ -41,6 +39,8 @@ export const BottomNav = (props) => {
       {/* menu */}
       <div id="nav_content">
         <div
+          // style={{ color: "black" }}
+          style={{ color: dropDownSerum ? "#000000" : "#777777" }}
           onMouseEnter={() => {
             setDropDownSerum(true);
             setSkin(false);
@@ -56,10 +56,11 @@ export const BottomNav = (props) => {
             setDropDownSerum(false);
           }}
         >
-          SẢN PHẨM ĐẶC TRỊ <IoIosArrowDown />
+          ÁO <IoIosArrowDown />
         </div>
 
         <div
+          style={{ color: dropDownSkin ? "#000000" : "#777777" }}
           onMouseEnter={() => {
             setDropDownSkin(true);
             setMakeup(false);
@@ -75,10 +76,11 @@ export const BottomNav = (props) => {
             setDropDownSkin(false);
           }}
         >
-          DƯỠNG DA <IoIosArrowDown />
+          QUẦN <IoIosArrowDown />
         </div>
 
         <div
+          style={{ color: dropDownClean ? "#000000" : "#777777" }}
           onMouseEnter={() => {
             setDropDownClean(true);
             setMakeup(false);
@@ -94,10 +96,12 @@ export const BottomNav = (props) => {
             setDropDownClean(false);
           }}
         >
-          LÀM SẠCH <IoIosArrowDown />
+          ĐẦM
+          <IoIosArrowDown />
         </div>
 
         <div
+          style={{ color: dropDownPersonalCare ? "#000000" : "#777777" }}
           onMouseEnter={() => {
             setDropDownPersonalCare(true);
             setMakeup(false);
@@ -113,17 +117,17 @@ export const BottomNav = (props) => {
             setDropDownPersonalCare(false);
           }}
         >
-          SẢN PHẨM CHỨC NĂNG <IoIosArrowDown />
+          PHỤ KIỆN <IoIosArrowDown />
         </div>
 
         <Link to="/products">
-          <div id="cart">
-            <TbVaccineBottle /> Tất cả sản phẩm
+          <div id="cart" style={{ color: "#777777" }}>
+            <GiClothes /> Tất cả sản phẩm
           </div>
         </Link>
 
         <Link to="/cart">
-          <div id="cart">
+          <div id="cart" style={{ color: "#777777" }}>
             <GiShoppingBag></GiShoppingBag> GIỎ HÀNG
           </div>
         </Link>
@@ -168,7 +172,7 @@ export const BottomNav = (props) => {
         </>
       ) : null} */}
 
-      {dropDownSerum && (
+      {dropDownSerum && serumProducts && serumProducts?.length !== 0 && (
         <NavSingle
           products={serumProducts}
           state={makeup}
@@ -178,7 +182,7 @@ export const BottomNav = (props) => {
         />
       )}
 
-      {dropDownSkin && (
+      {dropDownSkin && skinProducts && skinProducts?.length !== 0 && (
         <NavSingle
           products={skinProducts}
           state={skin}
@@ -188,7 +192,7 @@ export const BottomNav = (props) => {
         />
       )}
 
-      {dropDownClean && (
+      {dropDownClean && cleanProducts && cleanProducts?.length !== 0 && (
         <NavSingle
           products={cleanProducts}
           state={clean}
@@ -198,15 +202,17 @@ export const BottomNav = (props) => {
         />
       )}
 
-      {dropDownPersonalCare && (
-        <NavSingle
-          products={personalProducts}
-          state={pcare}
-          setState={setPcare}
-          setnav={setDropDownPersonalCare}
-          path={"/personal-care"}
-        />
-      )}
+      {dropDownPersonalCare &&
+        personalProducts &&
+        personalProducts?.length !== 0 && (
+          <NavSingle
+            products={personalProducts}
+            state={pcare}
+            setState={setPcare}
+            setnav={setDropDownPersonalCare}
+            path={"/personal-care"}
+          />
+        )}
     </div>
   );
 };

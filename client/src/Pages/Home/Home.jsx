@@ -1,10 +1,9 @@
-import { Box, Text, Image } from "@chakra-ui/react";
+import { Box, Text, Image, Flex, Divider } from "@chakra-ui/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import Hotdeals from "./Hotdeals";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // import { Images } from "./Data";
 import { useEffect, useState } from "react";
@@ -13,20 +12,21 @@ import axios from "axios";
 import { IoIosMenu } from "react-icons/io";
 import React from "react";
 import { dataUrl } from "../../share";
-import banner1 from "../../assets/images/banner1.jpg";
-import banner2 from "../../assets/images/banner2.jpg";
+import slider1 from "../../assets/images/slider1.png";
+import slider2 from "../../assets/images/slider2.png";
+import slider3 from "../../assets/images/slider3.png";
+import slider4 from "../../assets/images/slider4.png";
+
 import banner3 from "../../assets/images/banner3.jpg";
 import banner4 from "../../assets/images/banner4.jpg";
 import banner5 from "../../assets/images/banner5.jpg";
 import banner6 from "../../assets/images/banner6.jpg";
-import makeupIcon from "../../assets/images/makeup-icon.jpg";
-import treatmentIcon from "../../assets/images/treatment-icon.jpg";
-import hairIcon from "../../assets/images/hair-icon.jpg";
-import skinCareIcon from "../../assets/images/skincare-icon.jpg";
-import cleanIcon from "../../assets/images/clean-icon.jpg";
-import personalCareIcon from "../../assets/images/personal-care-icon.jpg";
-import perfumeIcon from "../../assets/images/perfume-icon.jpg";
-import motherAndBabyIcon from "../../assets/images/mother-and-baby-icon.jpg";
+import shirtIcon from "../../assets/images/shirt-icon.png";
+import pantIcon from "../../assets/images/pant-icon.png";
+import dressIcon from "../../assets/images/dress-icon.png";
+import earringIcon from "../../assets/images/earring-icon.png";
+import newProductsIcon from "../../assets/images/new-products-icon.png";
+import saleIcon from "../../assets/images/sale-icon.png";
 
 const Home = () => {
   const settings = {
@@ -40,6 +40,7 @@ const Home = () => {
     cssEase: "linear",
   };
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // console.log("data------", data);
@@ -47,19 +48,7 @@ const Home = () => {
 
   return (
     <>
-      {/* <iframe
-        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100086177367243%26mibextid%3DZbWKwL&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-        width="340"
-        height="500"
-        // style="border:none;overflow:hidden"
-        style={{ border: "none", overflow: "hidden" }}
-        scrolling="no"
-        frameborder="0"
-        allowfullscreen="true"
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-      ></iframe> */}
-
-      {/* menu */}
+      {/* slider */}
       <Box
         w="90%"
         m="auto"
@@ -71,7 +60,7 @@ const Home = () => {
         style={{ zIndex: "-100" }}
       >
         {/* option */}
-        <Box
+        {/* <Box
           ml={["16px", "16px", "16px"]}
           display={["block", "block", null, null, null]}
           width={["80%", "35%", "27%"]}
@@ -99,14 +88,12 @@ const Home = () => {
                 marginRight="5px"
                 boxSize={"30px"}
                 objectFit={"contain"}
-                src={treatmentIcon}
+                src={shirtIcon}
               />
             </Box>
             <NavLink to="/treatment">
               <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>
-                  Sản phẩm đặc trị
-                </Text>
+                <Text fontSize={["12px", "12px", "15px"]}>Áo</Text>
               </Box>
             </NavLink>
           </Box>
@@ -118,12 +105,12 @@ const Home = () => {
                 marginRight="5px"
                 boxSize={"30px"}
                 objectFit={"contain"}
-                src={skinCareIcon}
+                src={pantIcon}
               />
             </Box>
             <NavLink to="/skin">
               <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>Dưỡng da</Text>
+                <Text fontSize={["12px", "12px", "15px"]}>Quần</Text>
               </Box>
             </NavLink>
           </Box>
@@ -135,12 +122,12 @@ const Home = () => {
                 marginRight="5px"
                 boxSize={"30px"}
                 objectFit={"contain"}
-                src={cleanIcon}
+                src={dressIcon}
               />
             </Box>
             <NavLink to="/clean">
               <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>Làm sạch</Text>
+                <Text fontSize={["12px", "12px", "15px"]}>Đầm</Text>
               </Box>
             </NavLink>
           </Box>
@@ -152,24 +139,24 @@ const Home = () => {
                 marginRight="5px"
                 boxSize={"30px"}
                 objectFit={"contain"}
-                src={personalCareIcon}
+                src={earringIcon}
               />
             </Box>
             <NavLink to="/personal-care">
               <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>
-                  Sản phẩm chức năng
-                </Text>
+                <Text fontSize={["12px", "12px", "15px"]}>Phụ kiện</Text>
               </Box>
             </NavLink>
           </Box>
-        </Box>
+        </Box> */}
         {/* end option */}
         {/* Slider */}
         <Box
           p="0.5px"
+          // border={"1px solid red"}
           margin="auto"
-          width={["89%", "73%", "73%"]}
+          // width={["89%", "73%", "73%"]}
+          w={"100%"}
           style={{ zIndex: "-100" }}
         >
           <Slider {...settings}>
@@ -177,44 +164,199 @@ const Home = () => {
               <Image
                 objectFit="contain"
                 boxSize={"fit-content"}
-                src={banner1}
+                src={slider1}
               />
             </Box>
             <Box>
               <Image
                 objectFit="contain"
                 boxSize={"fit-content"}
-                src={banner2}
+                src={slider2}
+              />
+            </Box>
+
+            <Box>
+              <Image
+                objectFit="contain"
+                boxSize={"fit-content"}
+                src={slider3}
               />
             </Box>
           </Slider>
         </Box>
       </Box>
-      {/* end menu */}
+      {/* end slider */}
 
-      {/* <Hotdeals dt={data} /> */}
+      {/* categories */}
+      <Box w="90%" m="auto">
+        <Text
+          my={"12"}
+          textAlign={"center"}
+          fontWeight={"bold"}
+          fontSize={"xl"}
+        >
+          DANH MỤC SẢN PHẨM
+        </Text>
+
+        <Flex
+          justifyContent={"space-around"}
+          alignItems="center"
+          direction={{ base: "column", lg: "row" }}
+        >
+          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+            <Image
+              // width={["69%", "68%", "78%"]}
+              // border={"1px solid red"}
+              // borderRadius={"full"}
+              // marginRight="5px"
+              boxSize={{ base: "70px", lg: "100px" }}
+              p={4}
+              objectFit={"contain"}
+              src={shirtIcon}
+              m={"auto"}
+            />
+
+            <Text
+              textAlign={"center"}
+              fontWeight={"semibold"}
+              fontSize={["12px", "12px", "20px"]}
+            >
+              Áo
+            </Text>
+          </Box>
+
+          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+            <Image
+              // width={["69%", "68%", "78%"]}
+              // border={"1px solid red"}
+              // borderRadius={"full"}
+              // marginRight="5px"
+              boxSize={{ base: "70px", lg: "100px" }}
+              p={4}
+              objectFit={"contain"}
+              src={pantIcon}
+              m={"auto"}
+            />
+
+            <Text
+              textAlign={"center"}
+              fontWeight={"semibold"}
+              fontSize={["12px", "12px", "20px"]}
+            >
+              Quần
+            </Text>
+          </Box>
+
+          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+            <Image
+              // width={["69%", "68%", "78%"]}
+              // border={"1px solid red"}
+              // borderRadius={"full"}
+              // marginRight="5px"
+              boxSize={{ base: "70px", lg: "100px" }}
+              p={4}
+              objectFit={"contain"}
+              src={dressIcon}
+              m={"auto"}
+            />
+
+            <Text
+              textAlign={"center"}
+              fontWeight={"semibold"}
+              fontSize={["12px", "12px", "20px"]}
+            >
+              Đầm
+            </Text>
+          </Box>
+
+          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+            <Image
+              // width={["69%", "68%", "78%"]}
+              // border={"1px solid red"}
+              // borderRadius={"full"}
+              // marginRight="5px"
+              boxSize={{ base: "70px", lg: "100px" }}
+              p={4}
+              objectFit={"contain"}
+              src={earringIcon}
+              m={"auto"}
+            />
+
+            <Text
+              textAlign={"center"}
+              fontWeight={"semibold"}
+              fontSize={["12px", "12px", "20px"]}
+            >
+              Phụ kiện
+            </Text>
+          </Box>
+        </Flex>
+      </Box>
+      {/* end categories */}
+
       <br />
       <Box w="90%" m="auto">
-        <Image w="100%" src={banner3} />
+        <Image w="100%" src={slider4} />
       </Box>
 
       <br />
-      <BestSeller />
-      <br />
+      {/* <BestSeller /> */}
       <Box w="90%" m="auto">
-        <Image w="100%" src={banner4}></Image>
-      </Box>
+        <Flex
+          justifyContent={"space-around"}
+          alignItems="center"
+          direction={{ base: "column", lg: "row" }}
+          my={5}
+        >
+          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+            <Image
+              // width={["69%", "68%", "78%"]}
+              // border={"1px solid red"}
+              // borderRadius={"full"}
+              // marginRight="5px"
+              boxSize={{ base: "70px", lg: "100px" }}
+              p={4}
+              objectFit={"contain"}
+              src={newProductsIcon}
+              m={"auto"}
+            />
 
-      <br />
-      <Box w="90%" m="auto">
-        <Image w="100%" src={banner5}></Image>
-      </Box>
+            <Text
+              textAlign={"center"}
+              fontWeight={"semibold"}
+              fontSize={["12px", "12px", "20px"]}
+              textDecoration={"underline"}
+            >
+              Sản phẩm mới
+            </Text>
+          </Box>
 
-      <br />
-      <Box w="90%" m="auto">
-        <Image w="100%" src={banner6}></Image>
+          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+            <Image
+              // width={["69%", "68%", "78%"]}
+              // border={"1px solid red"}
+              // borderRadius={"full"}
+              // marginRight="5px"
+              boxSize={{ base: "70px", lg: "100px" }}
+              p={4}
+              objectFit={"contain"}
+              src={saleIcon}
+              m={"auto"}
+            />
+
+            <Text
+              textAlign={"center"}
+              fontWeight={"semibold"}
+              fontSize={["12px", "12px", "20px"]}
+              textDecoration={"underline"}
+            >
+              Giảm giá
+            </Text>
+          </Box>
+        </Flex>
       </Box>
       <br />
+      <Divider mt="5px" mb="3px" orientation="horizontal" />
     </>
   );
 };

@@ -24,8 +24,11 @@ module.exports = {
           model: "Products",
           key: "id",
           onUpdate: "CASCADE",
-          onDelete: "SET NULL",
+          onDelete: "CASCADE",
         },
+      },
+      size: {
+        type: Sequelize.STRING,
       },
       quantity: {
         type: Sequelize.INTEGER,

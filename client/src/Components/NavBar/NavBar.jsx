@@ -10,7 +10,7 @@ export const Navbar = () => {
   const loading = useSelector((state) => state.categories.loading);
   const error = useSelector((state) => state.categories.error);
 
-  console.log("check categories data: ", categories);
+  // console.log("check categories data: ", categories);
 
   const serumProducts = categories.filter((value) => {
     return value.categoryName === "Sản phẩm đặc trị";

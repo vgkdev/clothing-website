@@ -136,7 +136,7 @@ export function MainProducts(props) {
         <CardFooter>
           <ButtonGroup spacing="2">
             <Button
-              bgColor={"#6bc6d9"}
+              bgColor={"#ffffff"}
               color={"#ffffff"}
               onClick={handleAddToCart}
               mb={4}
@@ -155,7 +155,7 @@ export function MainProducts(props) {
               </Button>
             ) : (
               <Button
-                bgColor={"#6bc6d9"}
+                bgColor={"#ffffff"}
                 color={"#ffffff"}
                 mb={4}
                 onClick={handleAddFavoriteList}

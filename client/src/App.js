@@ -32,6 +32,7 @@ import { fetchCategories } from "./reducers/categories";
 import Loading from "./Components/Loading";
 import { setProducts } from "./reducers/products";
 import { ToastContainer } from "react-toastify";
+import { verifyUser } from "./reducers/user";
 
 function App() {
   const { smallScreen, mediumScreen } = useMedia();
@@ -40,6 +41,19 @@ function App() {
   const categories = useSelector((state) => state.categories.categories);
   const loading = useSelector((state) => state.categories.loading);
   const error = useSelector((state) => state.categories.error);
+
+  const userToken = JSON.parse(localStorage.getItem("UserToken"));
+
+  useEffect(() => {
+    if (userToken) {
+      dispatch(
+        verifyUser({
+          email: userToken.email,
+          password: userToken.password,
+        })
+      );
+    }
+  }, [userToken, dispatch]);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -79,7 +93,7 @@ function App() {
       {!mediumScreen && !loading && (
         <Flex
           style={{ position: "sticky", top: "0px", zIndex: 12 }}
-          bgColor={"#6bc6d9"}
+          bgColor={"#ffffff"}
           w="100%"
           justifyContent={"space-between"}
           p={"5px 5%"}
