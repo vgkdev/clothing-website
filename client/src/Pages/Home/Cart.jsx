@@ -118,7 +118,13 @@ const Cart = () => {
 
     // console.log("check payload: ", payload);
     const productEditCart = products.find((p) => p.id === productId);
-    if (productEditCart.quantity >= quantity) {
+    console.log("check product to edit: ", productEditCart);
+    const sizeOfProductCart = cartData.find((el) => el.id === id).size;
+    // console.log("check size: ", sizeOfProductCart);
+    const index =
+      sizeOfProductCart === "S" ? 0 : sizeOfProductCart === "M" ? 1 : 2;
+
+    if (productEditCart.ProductSizes[index].quantity >= quantity) {
       const response = await editCartService(payload);
       if (response.data.errCode === 0) {
         if (user && user.id) {

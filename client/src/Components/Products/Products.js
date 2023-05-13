@@ -2,20 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./Products.css";
 import { MainProducts } from "../MainProducts";
 import { useSelector } from "react-redux";
-import {
-  Box,
-  Text,
-  Image,
-  Button,
-  Stack,
-  Wrap,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Box, Text, Wrap, SimpleGrid, Button, Flex } from "@chakra-ui/react";
 import Loading from "../Loading";
 
 const Products = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sortPrice, setSortPrice] = useState(false);
+  const [sorted, setSorted] = useState(false);
 
   const categories = useSelector((state) => state.categories.categories);
   const products = useSelector((state) => state.products.products);
@@ -35,6 +29,22 @@ const Products = () => {
   };
   // console.log("check all products: ", products);
 
+  const sortProductsByPrice = () => {
+    let sortedData = [...data];
+    if (sortPrice === null) {
+      sortedData.sort((a, b) => a.price - b.price); // Sắp xếp tăng dần
+      setSortPrice(true);
+    } else if (sortPrice) {
+      sortedData.sort((a, b) => b.price - a.price); // Sắp xếp giảm dần
+      setSortPrice(false);
+    } else {
+      sortedData = getAllProducts(categories); // Khôi phục danh sách sản phẩm ban đầu
+      setSortPrice(null);
+    }
+    setData(sortedData);
+    setSorted(true);
+  };
+
   return (
     <Box p={5}>
       <Text
@@ -46,6 +56,26 @@ const Products = () => {
       >
         Tất cả sản phẩm
       </Text>
+
+      <Flex justifyContent={"end"} px={5}>
+        <Button
+          justifySelf={"end"}
+          onClick={() => {
+            setSortPrice(!sortPrice);
+            sortProductsByPrice();
+          }}
+          variant="outline"
+          size="sm"
+          alignSelf="flex-end"
+          mb={2}
+        >
+          {sortPrice === null
+            ? "Sắp xếp giá"
+            : sortPrice
+            ? "Giá tăng dần"
+            : "Giá giảm dần"}
+        </Button>
+      </Flex>
 
       <Wrap justify="center" my={"16"}>
         {!loading && data.length === 0 && (

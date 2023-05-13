@@ -178,7 +178,7 @@ export const BottomNav = (props) => {
           state={makeup}
           setState={setMakeup}
           setnav={setDropDownSerum}
-          path={"/treatment"}
+          path={"/shirt"}
         />
       )}
 

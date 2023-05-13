@@ -48,7 +48,7 @@ const OrderComp = ({ orders, handleShowModalOrder, handleDeleteOrder }) => {
                 <Td>
                   {order.OrderDetails.map((item) => (
                     <Text key={item.id} mb={2}>
-                      {item.Product.productName} x {item.quantity}
+                      {item.Product.productName} x {item.quantity} ({item.size})
                     </Text>
                   ))}
                 </Td>

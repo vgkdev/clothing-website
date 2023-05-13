@@ -26,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.TEXT,
       imageUrl: DataTypes.BLOB("long"),
       price: DataTypes.FLOAT,
+      sale: DataTypes.BOOLEAN,
+      newProduct: DataTypes.BOOLEAN,
     },
     {
       sequelize,

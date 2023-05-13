@@ -91,7 +91,7 @@ const Home = () => {
                 src={shirtIcon}
               />
             </Box>
-            <NavLink to="/treatment">
+            <NavLink to="/shirt">
               <Box>
                 <Text fontSize={["12px", "12px", "15px"]}>Áo</Text>
               </Box>
@@ -203,7 +203,7 @@ const Home = () => {
           alignItems="center"
           direction={{ base: "column", lg: "row" }}
         >
-          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+          <Box cursor={"pointer"} onClick={() => navigate("/shirt")}>
             <Image
               // width={["69%", "68%", "78%"]}
               // border={"1px solid red"}
@@ -225,7 +225,7 @@ const Home = () => {
             </Text>
           </Box>
 
-          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+          <Box cursor={"pointer"} onClick={() => navigate("/pant")}>
             <Image
               // width={["69%", "68%", "78%"]}
               // border={"1px solid red"}
@@ -247,7 +247,7 @@ const Home = () => {
             </Text>
           </Box>
 
-          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+          <Box cursor={"pointer"} onClick={() => navigate("/dress")}>
             <Image
               // width={["69%", "68%", "78%"]}
               // border={"1px solid red"}
@@ -269,7 +269,7 @@ const Home = () => {
             </Text>
           </Box>
 
-          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+          <Box cursor={"pointer"} onClick={() => navigate("/association")}>
             <Image
               // width={["69%", "68%", "78%"]}
               // border={"1px solid red"}
@@ -308,7 +308,7 @@ const Home = () => {
           direction={{ base: "column", lg: "row" }}
           my={5}
         >
-          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+          <Box cursor={"pointer"} onClick={() => navigate("/shirt")}>
             <Image
               // width={["69%", "68%", "78%"]}
               // border={"1px solid red"}
@@ -331,7 +331,7 @@ const Home = () => {
             </Text>
           </Box>
 
-          <Box cursor={"pointer"} onClick={() => navigate("/treatment")}>
+          <Box cursor={"pointer"} onClick={() => navigate("/shirt")}>
             <Image
               // width={["69%", "68%", "78%"]}
               // border={"1px solid red"}

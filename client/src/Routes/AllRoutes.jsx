@@ -36,10 +36,10 @@ const AllRoutes = () => {
       {/* <Route path="/test" element={<Admin />}></Route> */}
       <Route path="/cart" element={<Cart />}></Route>
       <Route path="/favorite-list" element={<FavoriteList />}></Route>
-      <Route path="/skin" element={<Skin />}></Route>
-      <Route path="/treatment" element={<Serum />}></Route>
-      <Route path="/clean" element={<Clean />}></Route>
-      <Route path="/personal-care" element={<PersonalCare />}></Route>
+      <Route path="/shirt" element={<Skin />}></Route>
+      <Route path="/pant" element={<Serum />}></Route>
+      <Route path="/dress" element={<Clean />}></Route>
+      <Route path="/association" element={<PersonalCare />}></Route>
       <Route path="/payment" element={<PaymentPage />}></Route>
       <Route path="/payment-success" element={<PaymentSuccess />}></Route>
     </Routes>

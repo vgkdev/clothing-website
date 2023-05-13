@@ -2,41 +2,48 @@ import db from "../models/index";
 import { Sequelize } from "sequelize";
 
 const createNewCart = (data) => {
-  const { userId, productId, quantity } = data;
+  const { userId, productId, quantity, size } = data;
+  console.log("check data: ", data);
   return new Promise(async (resolve, reject) => {
     try {
-      if (!userId || !productId || !quantity) {
+      if (!userId || !productId || !quantity || !size) {
         resolve({
           errCode: 1,
           message: "Missing paremeter !",
         });
-      }
-
-      const result = await db.Cart.create({
-        userId: userId,
-        productId: productId,
-        quantity: quantity,
-      });
-
-      if (result) {
-        const cart = await db.Cart.findAll({
-          include: [
-            {
-              model: db.Product,
-            },
-          ],
-        });
-
-        resolve({
-          errCode: 0,
-          message: "Create new cart successfully",
-          cart,
-        });
       } else {
-        resolve({
-          errCode: 6,
-          message: "Server create cart error !",
+        const result = await db.Cart.create({
+          userId: userId,
+          productId: productId,
+          quantity: quantity,
+          size: size,
         });
+
+        if (result) {
+          const cart = await db.Cart.findAll({
+            include: [
+              {
+                model: db.Product,
+                include: [
+                  {
+                    model: db.ProductSize,
+                  },
+                ],
+              },
+            ],
+          });
+
+          resolve({
+            errCode: 0,
+            message: "Create new cart successfully",
+            cart,
+          });
+        } else {
+          resolve({
+            errCode: 6,
+            message: "Server create cart error !",
+          });
+        }
       }
     } catch (e) {
       console.log("Error: ", e);
@@ -55,6 +62,11 @@ const getALlCarts = () => {
         include: [
           {
             model: db.Product,
+            include: [
+              {
+                model: db.ProductSize,
+              },
+            ],
           },
         ],
       }); // => array
@@ -91,6 +103,11 @@ const getALlCartsByUserId = (userId) => {
         include: [
           {
             model: db.Product,
+            include: [
+              {
+                model: db.ProductSize,
+              },
+            ],
           },
         ],
       }); // => array
@@ -145,6 +162,11 @@ const editCart = (data) => {
           include: [
             {
               model: db.Product,
+              include: [
+                {
+                  model: db.ProductSize,
+                },
+              ],
             },
           ],
         });
@@ -190,6 +212,11 @@ const deleteCart = (id) => {
           include: [
             {
               model: db.Product,
+              include: [
+                {
+                  model: db.ProductSize,
+                },
+              ],
             },
           ],
         });
@@ -237,6 +264,11 @@ const deleteCartByUserId = (userId) => {
           include: [
             {
               model: db.Product,
+              include: [
+                {
+                  model: db.ProductSize,
+                },
+              ],
             },
           ],
         });

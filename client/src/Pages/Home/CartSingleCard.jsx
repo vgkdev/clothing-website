@@ -91,6 +91,7 @@ const CartSingleCard = ({ cartData, deleteCart, updateCart }) => {
 
               <Stack>
                 <Text>Số lượng mua: {quantity}</Text>
+                <Text>Size: {cartData.size}</Text>
               </Stack>
             </Stack>
           </Stack>

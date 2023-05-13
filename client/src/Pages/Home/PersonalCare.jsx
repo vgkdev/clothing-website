@@ -15,6 +15,7 @@ import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { MainProducts } from "../../Components/MainProducts";
+import { animateScroll as scroll } from "react-scroll";
 
 const PersonalCare = () => {
   const [products, setProducts] = useState([]);
@@ -22,8 +23,9 @@ const PersonalCare = () => {
   const categories = useSelector((state) => state.categories.categories);
 
   useEffect(() => {
+    scroll.scrollToTop();
     const personalCareProducts = categories.filter((value) => {
-      return value.categoryName === "Sản phẩm chức năng";
+      return value.categoryName === "Phụ kiện";
     });
     setProducts(personalCareProducts[0].Products);
   }, [categories]);
@@ -38,7 +40,7 @@ const PersonalCare = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        Sản phẩm chức năng
+        Phụ kiện
       </Text>
 
       <Wrap justify="center" my={"16"}>

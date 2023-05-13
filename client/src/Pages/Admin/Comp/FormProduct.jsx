@@ -6,6 +6,8 @@ import {
   Input,
   Stack,
   Select,
+  Checkbox,
+  Flex,
 } from "@chakra-ui/react";
 
 const FormProduct = (props) => {
@@ -23,12 +25,22 @@ const FormProduct = (props) => {
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState();
   const [price, setPrice] = useState("");
+  const [numberOfSizeS, setNumberOfSizeS] = useState("");
+  const [numberOfSizeM, setNumberOfSizeM] = useState("");
+  const [numberOfSizeL, setNumberOfSizeL] = useState("");
+  const [isSale, setIsSale] = useState(false);
+  const [isNew, setIsNew] = useState(false);
+
   // console.log("check product form: ", product);
 
   useEffect(() => {
     if (type === "Update") {
       setProductName(product.productName);
-      setQuantity(product.quantity);
+      setNumberOfSizeS(product.ProductSizes[0].quantity);
+      setNumberOfSizeM(product.ProductSizes[1].quantity);
+      setNumberOfSizeL(product.ProductSizes[2].quantity);
+      setIsSale(product.sale);
+      setIsNew(product.newProduct);
       setPrice(product.price);
       setDescription(product.description);
       setCategoryId(product.categoryId);
@@ -41,11 +53,16 @@ const FormProduct = (props) => {
       const data = {
         categoryId: categoryId,
         productName: productName,
-        quantity: quantity,
         price: price,
         description: description,
         imageUrl: imageUrl,
+        numberOfSizeS: numberOfSizeS,
+        numberOfSizeM: numberOfSizeM,
+        numberOfSizeL: numberOfSizeL,
+        sale: isSale,
+        newProduct: isNew,
       };
+      console.log("check data: ", data);
       handleCreateProduct(data);
     } else if (type === "Update") {
       const data = {
@@ -53,9 +70,13 @@ const FormProduct = (props) => {
         newProductName: productName,
         productName: product.productName,
         categoryId: categoryId,
-        quantity: quantity,
         price: price,
         description: description,
+        numberOfSizeS: numberOfSizeS,
+        numberOfSizeM: numberOfSizeM,
+        numberOfSizeL: numberOfSizeL,
+        sale: isSale || false,
+        newProduct: isNew || false,
       };
       console.log("check data in form: ", data);
       handleEditProduct(data);
@@ -83,16 +104,41 @@ const FormProduct = (props) => {
           />
         </FormControl>
 
-        <FormControl display={type === "Update_image" ? "none" : ""}>
-          <FormLabel>Số lượng</FormLabel>
-          <Input
-            type="text"
-            value={quantity}
-            onChange={(event) => setQuantity(event.target.value)}
-            placeholder="Số lượng"
-            disabled={type === "Detail"}
-          />
-        </FormControl>
+        <FormLabel>Số lượng sản phẩm các size:</FormLabel>
+        <Flex gap={5}>
+          <FormControl display={type === "Update_image" ? "none" : ""}>
+            <FormLabel>Size S</FormLabel>
+            <Input
+              type="text"
+              value={numberOfSizeS}
+              onChange={(event) => setNumberOfSizeS(event.target.value)}
+              placeholder="Số lượng"
+              disabled={type === "Detail"}
+            />
+          </FormControl>
+
+          <FormControl display={type === "Update_image" ? "none" : ""}>
+            <FormLabel>Size M</FormLabel>
+            <Input
+              type="text"
+              value={numberOfSizeM}
+              onChange={(event) => setNumberOfSizeM(event.target.value)}
+              placeholder="Số lượng"
+              disabled={type === "Detail"}
+            />
+          </FormControl>
+
+          <FormControl display={type === "Update_image" ? "none" : ""}>
+            <FormLabel>Size L</FormLabel>
+            <Input
+              type="text"
+              value={numberOfSizeL}
+              onChange={(event) => setNumberOfSizeL(event.target.value)}
+              placeholder="Số lượng"
+              disabled={type === "Detail"}
+            />
+          </FormControl>
+        </Flex>
 
         <FormControl display={type === "Update_image" ? "none" : ""}>
           <FormLabel>Giá</FormLabel>
@@ -104,6 +150,30 @@ const FormProduct = (props) => {
             disabled={type === "Detail"}
           />
         </FormControl>
+
+        <Flex style={{ margin: "20px 0" }}>
+          <FormControl>
+            {/* <FormLabel>Sale</FormLabel> */}
+            <Checkbox
+              name="sale"
+              isChecked={isSale}
+              onChange={() => setIsSale(!isSale)}
+            >
+              Sale
+            </Checkbox>
+          </FormControl>
+
+          <FormControl>
+            {/* <FormLabel>Sản phẩm mới</FormLabel> */}
+            <Checkbox
+              name="new product"
+              isChecked={isNew}
+              onChange={() => setIsNew(!isNew)}
+            >
+              Sản phẩm mới
+            </Checkbox>
+          </FormControl>
+        </Flex>
 
         <FormControl display={type === "Update_image" ? "none" : ""}>
           <FormLabel>Mô tả</FormLabel>

@@ -13,19 +13,19 @@ export const Navbar = () => {
   // console.log("check categories data: ", categories);
 
   const serumProducts = categories.filter((value) => {
-    return value.categoryName === "Sản phẩm đặc trị";
+    return value.categoryName === "Áo";
   });
 
   const skinProducts = categories.filter((value) => {
-    return value.categoryName === "Dưỡng da";
+    return value.categoryName === "Quần";
   });
 
   const cleanProducts = categories.filter((value) => {
-    return value.categoryName === "Làm sạch";
+    return value.categoryName === "Đầm";
   });
 
   const personalProducts = categories.filter((value) => {
-    return value.categoryName === "Sản phẩm chức năng";
+    return value.categoryName === "Phụ kiện";
   });
 
   return (

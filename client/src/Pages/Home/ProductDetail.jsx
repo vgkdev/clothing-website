@@ -13,7 +13,10 @@ import {
   HStack,
   Textarea,
   Grid,
-  Input,
+  RadioGroup,
+  Stack,
+  Radio,
+  useSafeLayoutEffect,
 } from "@chakra-ui/react";
 import {
   BsSuitHeartFill,
@@ -42,6 +45,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [comment, setComment] = useState("");
+  const [size, setSize] = useState("");
 
   const dispatch = useDispatch();
   const [commentAdded, setCommentAdded] = useState(false);
@@ -50,6 +54,8 @@ const ProductDetail = () => {
   const products = useSelector((state) => state.products.products);
   const categories = useSelector((state) => state.categories.categories);
   const user = useSelector((state) => state.user.user);
+
+  const index = size === "S" ? 0 : size === "M" ? 1 : 2;
 
   const relatedProducts = categories
     .flatMap((category) => category.Products)
@@ -83,21 +89,28 @@ const ProductDetail = () => {
         userId: user.id,
         productId: data.id,
         quantity: quantity,
+        size: size,
       };
 
-      const productAddToCart = products.find((p) => p.id === data.id);
-      if (productAddToCart.quantity >= quantity) {
-        console.log("check quantity: ", productAddToCart.quantity);
-        const response = await createNewCartService(payload);
-        if (response.data.errCode === 0) {
-          toast.success("Đã thêm vào giỏ hàng");
-          // console.log("add success");
-        } else {
-          toast.error("Lỗi không thêm được vào giỏ hàng");
-        }
-        console.log("check add to cart: ", response);
+      if (!size) {
+        toast.error("Hãy chọn size !");
       } else {
-        toast.error("Số lượng sản phẩm hiện tại không đủ !");
+        const productAddToCart = products.find((p) => p.id === data.id);
+        console.log("check product add to cart: ", productAddToCart);
+
+        if (productAddToCart.ProductSizes[index].quantity >= quantity) {
+          console.log("check quantity: ", productAddToCart.quantity);
+          const response = await createNewCartService(payload);
+          if (response.data.errCode === 0) {
+            toast.success("Đã thêm vào giỏ hàng");
+            // console.log("add success");
+          } else {
+            toast.error("Lỗi không thêm được vào giỏ hàng");
+          }
+          console.log("check add to cart: ", response);
+        } else {
+          toast.error("Số lượng sản phẩm hiện tại không đủ !");
+        }
       }
     }
   };
@@ -148,7 +161,9 @@ const ProductDetail = () => {
     // console.log("check payload: ", response);
   };
 
-  // console.log("check products: ", products);
+  console.log("check products: ", data);
+  // console.log("check size: ", index);
+
   return (
     <>
       {data && !loading && (
@@ -177,7 +192,7 @@ const ProductDetail = () => {
                 {data.description}
               </Text>
               <Text fontSize="lg" mb={4}>
-                Số lượng: {data.quantity}
+                Số lượng: {data?.ProductSizes[index]?.quantity}
               </Text>
               <Divider my={8} />
 
@@ -200,9 +215,25 @@ const ProductDetail = () => {
                 />
               </HStack>
 
+              <HStack spacing="4" mb={4}>
+                <Text>Size:</Text>
+                <RadioGroup onChange={(value) => setSize(value)} value={size}>
+                  <Stack spacing={5} direction="row">
+                    <Radio colorScheme="green" value="S">
+                      S
+                    </Radio>
+                    <Radio colorScheme="green" value="M">
+                      M
+                    </Radio>
+                    <Radio colorScheme="green" value="L">
+                      L
+                    </Radio>
+                  </Stack>
+                </RadioGroup>
+              </HStack>
+
               <Button
-                bgColor={"#ffffff"}
-                color={"#ffffff"}
+                colorScheme="whatsapp"
                 onClick={handleAddToCart}
                 mb={4}
                 mr={3}
@@ -212,8 +243,7 @@ const ProductDetail = () => {
               </Button>
               <Button
                 onClick={handleAddFavoriteList}
-                bgColor={"#ffffff"}
-                color={"#ffffff"}
+                colorScheme="whatsapp"
                 mb={4}
               >
                 <BsSuitHeartFill />
@@ -240,30 +270,6 @@ const ProductDetail = () => {
             Gửi
           </Button>
 
-          {/* <Box>
-            {listComment.length !== 0 && (
-              <>
-                {listComment.map((comment) => (
-                  <Box
-                    key={comment.id}
-                    borderWidth="1px"
-                    borderRadius="lg"
-                    p={3}
-                    my={3}
-                  >
-                    <Text fontSize={"lg"}>{comment.commentContent}</Text>
-                    <Text fontSize="sm" color="gray.500">
-                      {comment.User.firstName + " " + comment.User.lastName} -{" "}
-                      {moment
-                        .utc(comment.createdAt)
-                        .local()
-                        .format("DD-MM-YYYY HH:mm")}
-                    </Text>
-                  </Box>
-                ))}
-              </>
-            )}
-          </Box> */}
           <ListComment id={id} commentAdded={commentAdded} />
 
           <Divider my={8} />

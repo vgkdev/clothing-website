@@ -28,14 +28,14 @@ const createNewCategory = (data) => {
 
         if (result) {
           const category = await db.Category.findAll({
-            attributes: [
-              "id",
-              "categoryName",
-              [
-                Sequelize.fn("count", Sequelize.col("Products.categoryId")),
-                "productCount",
-              ],
-            ],
+            // attributes: [
+            //   "id",
+            //   "categoryName",
+            //   [
+            //     Sequelize.fn("count", Sequelize.col("Products.categoryId")),
+            //     "productCount",
+            //   ],
+            // ],
             include: [
               {
                 model: db.Product,
@@ -73,42 +73,15 @@ const getALlCategories = () => {
         include: [
           {
             model: db.Product,
-            attributes: [
-              [
-                Sequelize.fn("COUNT", Sequelize.col("categoryId")),
-                "productCount",
-              ],
+            // where: { categoryId: Sequelize.col("Category.id") },
+            // required: false,
+            include: [
+              {
+                model: db.ProductSize,
+              },
             ],
           },
         ],
-        // attributes: [
-        //   "id",
-        //   "categoryName",
-        //   [
-        //     Sequelize.fn("count", Sequelize.col("Products.categoryId")),
-        //     "productCount",
-        //   ],
-        // ],
-        // include: [
-        //   {
-        //     model: db.Product,
-        //     attributes: [],
-        //   },
-        // ],
-        include: {
-          model: db.Product,
-          where: { categoryId: Sequelize.col("Category.id") },
-          // attributes: [
-          //   "id",
-          //   "categoryId",
-          //   "productName",
-          //   "quantity",
-          //   "description",
-          //   "imageUrl",
-          //   "price",
-          // ],
-          required: false,
-        },
         // group: ["Category.id"],
       }); // => array
 
@@ -168,14 +141,14 @@ const editCategory = (data) => {
 
         if (updatedRows !== 0) {
           const category = await db.Category.findAll({
-            attributes: [
-              "id",
-              "categoryName",
-              [
-                Sequelize.fn("count", Sequelize.col("Products.categoryId")),
-                "productCount",
-              ],
-            ],
+            // attributes: [
+            //   "id",
+            //   "categoryName",
+            //   [
+            //     Sequelize.fn("count", Sequelize.col("Products.categoryId")),
+            //     "productCount",
+            //   ],
+            // ],
             include: [
               {
                 model: db.Product,
@@ -224,14 +197,14 @@ const deleteCategory = (id) => {
       // console.log("check delete category: ", result);
       if (result !== 0) {
         const category = await db.Category.findAll({
-          attributes: [
-            "id",
-            "categoryName",
-            [
-              Sequelize.fn("count", Sequelize.col("Products.categoryId")),
-              "productCount",
-            ],
-          ],
+          // attributes: [
+          //   "id",
+          //   "categoryName",
+          //   [
+          //     Sequelize.fn("count", Sequelize.col("Products.categoryId")),
+          //     "productCount",
+          //   ],
+          // ],
           include: [
             {
               model: db.Product,

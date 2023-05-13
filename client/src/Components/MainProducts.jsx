@@ -11,6 +11,9 @@ import {
   Button,
   Box,
   Container,
+  HStack,
+  RadioGroup,
+  Radio,
 } from "@chakra-ui/react";
 import "./Products/Products.css";
 import { Image } from "@chakra-ui/react";
@@ -28,13 +31,17 @@ import {
   createNewFavoriteListService,
   deleteFavoriteListService,
 } from "../api/favoriteListApi";
+import { useState } from "react";
 
 export function MainProducts(props) {
   const { setnav, setState } = props;
+  const [size, setSize] = useState("");
 
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
   const products = useSelector((state) => state.products.products);
+
+  const index = size === "S" ? 0 : size === "M" ? 1 : 2;
 
   // console.log("check props: ", props);
 
@@ -54,19 +61,24 @@ export function MainProducts(props) {
         userId: user.id,
         productId: props.id,
         quantity: 1,
+        size: size,
       };
 
-      const productAddToCart = products.find((p) => p.id === props.id);
-      if (productAddToCart.quantity > 0) {
-        // console.log("check payload: ", payload);
-        const response = await createNewCartService(payload);
-        if (response.data.errCode === 0) {
-          toast.success("Đã thêm vào giỏ hàng");
-        } else {
-          toast.error("Lỗi không thêm được vào giỏ hàng");
-        }
+      if (!size) {
+        toast.error("Hãy chọn size !");
       } else {
-        toast.error("Số lượng sản phẩm hiện tại không đủ !");
+        const productAddToCart = products.find((p) => p.id === props.id);
+        if (productAddToCart.ProductSizes[index].quantity > 0) {
+          // console.log("check payload: ", payload);
+          const response = await createNewCartService(payload);
+          if (response.data.errCode === 0) {
+            toast.success("Đã thêm vào giỏ hàng");
+          } else {
+            toast.error("Lỗi không thêm được vào giỏ hàng");
+          }
+        } else {
+          toast.error("Số lượng sản phẩm hiện tại không đủ !");
+        }
       }
     }
   };
@@ -129,6 +141,22 @@ export function MainProducts(props) {
               {convertPrice(props.price)}
             </Text>
           </Stack>
+          <HStack onClick={(e) => e.stopPropagation()} spacing="4" mb={4}>
+            <Text>Size:</Text>
+            <RadioGroup onChange={(value) => setSize(value)} value={size}>
+              <Stack spacing={3} direction="row">
+                <Radio colorScheme="green" value="S">
+                  S
+                </Radio>
+                <Radio colorScheme="green" value="M">
+                  M
+                </Radio>
+                <Radio colorScheme="green" value="L">
+                  L
+                </Radio>
+              </Stack>
+            </RadioGroup>
+          </HStack>
         </CardBody>
 
         <Divider borderColor={"silver"} />
@@ -136,8 +164,9 @@ export function MainProducts(props) {
         <CardFooter>
           <ButtonGroup spacing="2">
             <Button
-              bgColor={"#ffffff"}
-              color={"#ffffff"}
+              // bgColor={"#005559"}
+              // color={"#ffffff"}
+              colorScheme="whatsapp"
               onClick={handleAddToCart}
               mb={4}
               mr={3}
@@ -146,8 +175,9 @@ export function MainProducts(props) {
             </Button>
             {props.type && props.type === "FAVORITE" ? (
               <Button
-                bgColor={"red"}
-                color={"#ffffff"}
+                // bgColor={"red"}
+                // color={"#ffffff"}
+                colorScheme="red"
                 mb={4}
                 onClick={() => props.handleDeleteItemInFavoriteList(props.id)}
               >
@@ -155,8 +185,9 @@ export function MainProducts(props) {
               </Button>
             ) : (
               <Button
-                bgColor={"#ffffff"}
-                color={"#ffffff"}
+                // bgColor={"#ffffff"}
+                // color={"#ffffff"}
+                colorScheme="whatsapp"
                 mb={4}
                 onClick={handleAddFavoriteList}
               >

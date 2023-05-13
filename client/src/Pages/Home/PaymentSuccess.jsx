@@ -6,7 +6,7 @@ import {
 } from "../../api/cartApi";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createNewOrderService } from "../../api/ortherApi";
+import { createNewOrderService } from "../../api/orderApi";
 import { toast } from "react-toastify";
 import { Buffer } from "buffer";
 import { editProductService } from "../../api/productApi";

@@ -16,6 +16,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { MainProducts } from "../../Components/MainProducts";
 import Loading from "../../Components/Loading";
+import { animateScroll as scroll } from "react-scroll";
 
 const Serum = () => {
   const [products, setProducts] = useState([]);
@@ -24,8 +25,9 @@ const Serum = () => {
   const categories = useSelector((state) => state.categories.categories);
 
   useEffect(() => {
+    scroll.scrollToTop();
     const serumProducts = categories.filter((value) => {
-      return value.categoryName === "Sản phẩm đặc trị";
+      return value.categoryName === "Quần";
     });
     setProducts(serumProducts[0].Products);
   }, [categories]);
@@ -40,7 +42,7 @@ const Serum = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        Sản phẩm đặc trị
+        Quần
       </Text>
 
       <Wrap justify="center" my={"16"}>

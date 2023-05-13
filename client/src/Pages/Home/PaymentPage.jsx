@@ -31,7 +31,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { createPaymentService } from "../../api/paymentApi";
 import { editUserService } from "../../api/userApi";
 import { updateUser } from "../../reducers/user";
-import { createNewOrderService } from "../../api/ortherApi";
+import { createNewOrderService } from "../../api/orderApi";
 import moment from "moment";
 import { editProductService } from "../../api/productApi";
 
@@ -119,6 +119,7 @@ const PaymentPage = () => {
     // // console.log("check res payment: ", response);
     // window.location.href = response.data.checkoutUrl;
     // console.log("check order type: ", orderType);
+    // console.log("check cart data: ", cartData);
     if (!orderType) {
       toast.error("Hãy chọn phương thức thanh toán !");
       return;
@@ -142,14 +143,34 @@ const PaymentPage = () => {
           try {
             await deleteCartByUserIdService(user.id);
             for (let i = 0; i < cartData.length; i++) {
+              const sizeOfProductCart = cartData[i].size;
+              console.log("check size: ", sizeOfProductCart);
+              const index =
+                sizeOfProductCart === "S"
+                  ? 0
+                  : sizeOfProductCart === "M"
+                  ? 1
+                  : 2;
+
               await editProductService({
                 id: cartData[i].Product.id,
                 newProductName: cartData[i].Product.productName,
                 productName: cartData[i].Product.productName,
                 categoryId: cartData[i].Product.categoryId,
-                quantity: cartData[i].Product.quantity - cartData[i].quantity,
+                // quantity: cartData[i].Product.quantity - cartData[i].quantity,
+                numberOfSizeS:
+                  cartData[i].Product.ProductSizes[0].quantity -
+                  cartData[i].quantity * (cartData[i].size === "S"),
+                numberOfSizeM:
+                  cartData[i].Product.ProductSizes[1].quantity -
+                  cartData[i].quantity * (cartData[i].size === "M"),
+                numberOfSizeL:
+                  cartData[i].Product.ProductSizes[2].quantity -
+                  cartData[i].quantity * (cartData[i].size === "L"),
                 price: cartData[i].Product.price,
                 description: cartData[i].Product.description,
+                sale: cartData[i].Product.sale,
+                newProduct: cartData[i].Product.newProduct,
               });
             }
           } catch (e) {

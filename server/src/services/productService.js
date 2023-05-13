@@ -1,7 +1,56 @@
 import db from "../models/index";
 
+const addProductSize = async (productId, size, quantity) => {
+  try {
+    await db.ProductSize.create({
+      productId: productId,
+      size: size,
+      quantity: quantity,
+    });
+  } catch (e) {
+    console.log("error in create product size: ", e);
+  }
+};
+
+const updateProductSize = async (productId, size, quantity) => {
+  try {
+    await db.ProductSize.update(
+      {
+        quantity: quantity,
+      },
+      {
+        where: { productId: productId, size: size },
+        returning: true,
+        plain: true,
+      }
+    );
+  } catch (e) {
+    console.log("error in update product size: ", e);
+  }
+};
+
+const deleteProductSize = async (productId) => {
+  try {
+    await db.ProductSize.destroy({
+      where: { productId: productId },
+    });
+  } catch (e) {
+    console.log("error in delete product size: ", e);
+  }
+};
+
 const createNewProduct = (data, image) => {
-  const { categoryId, productName, description, price, quantity } = data;
+  const {
+    categoryId,
+    productName,
+    description,
+    price,
+    sale,
+    newProduct,
+    numberOfSizeS,
+    numberOfSizeM,
+    numberOfSizeL,
+  } = data;
   const imageUrl = image.buffer;
   console.log("check image: ", image.buffer);
   return new Promise(async (resolve, reject) => {
@@ -13,8 +62,12 @@ const createNewProduct = (data, image) => {
           description &&
           price &&
           imageUrl &&
-          quantity
-        )
+          numberOfSizeS &&
+          numberOfSizeM &&
+          numberOfSizeL
+        ) ||
+        sale === null ||
+        newProduct === null
       ) {
         resolve({
           errCode: 1,
@@ -39,8 +92,19 @@ const createNewProduct = (data, image) => {
           description: description,
           imageUrl: imageUrl,
           price: price,
-          quantity: quantity,
+          quantity:
+            Number(numberOfSizeS) +
+            Number(numberOfSizeM) +
+            Number(numberOfSizeL),
+          sale: sale,
+          newProduct: newProduct,
         });
+
+        await Promise.all([
+          await addProductSize(result.id, "S", numberOfSizeS),
+          await addProductSize(result.id, "M", numberOfSizeM),
+          await addProductSize(result.id, "L", numberOfSizeL),
+        ]);
 
         if (result) {
           const product = await db.Product.findAll({
@@ -49,8 +113,13 @@ const createNewProduct = (data, image) => {
                 model: db.Category,
                 attributes: ["categoryName"],
               },
+              {
+                model: db.ProductSize,
+                attributes: ["size", "quantity"],
+              },
             ],
           });
+          console.log("check product: ", product);
           resolve({
             errCode: 0,
             message: "Create new product successfully",
@@ -81,6 +150,10 @@ const getALlProducts = () => {
           {
             model: db.Category,
             attributes: ["categoryName"],
+          },
+          {
+            model: db.ProductSize,
+            attributes: ["size", "quantity"],
           },
         ],
       }); // => array
@@ -121,9 +194,13 @@ const editProduct = (data) => {
     description,
     price,
     newProductName,
-    quantity,
+    sale,
+    newProduct,
+    numberOfSizeS,
+    numberOfSizeM,
+    numberOfSizeL,
   } = data;
-
+  // console.log("check data update: ", data);
   return new Promise(async (resolve, reject) => {
     try {
       if (
@@ -133,9 +210,13 @@ const editProduct = (data) => {
           id &&
           categoryId &&
           description &&
-          price &&
-          quantity
-        )
+          price
+        ) ||
+        sale === null ||
+        newProduct === null ||
+        numberOfSizeS === null ||
+        numberOfSizeM === null ||
+        numberOfSizeL === null
       ) {
         resolve({
           errCode: 1,
@@ -164,7 +245,12 @@ const editProduct = (data) => {
             productName: newProductName,
             description: description,
             price: price,
-            quantity: quantity,
+            quantity:
+              Number(numberOfSizeS) +
+              Number(numberOfSizeM) +
+              Number(numberOfSizeL),
+            sale: sale,
+            newProduct: newProduct,
           },
           {
             where: { id: data.id },
@@ -173,12 +259,22 @@ const editProduct = (data) => {
           }
         );
 
+        await Promise.all([
+          updateProductSize(id, "S", numberOfSizeS),
+          updateProductSize(id, "M", numberOfSizeM),
+          updateProductSize(id, "L", numberOfSizeL),
+        ]);
+
         if (updatedRows !== 0) {
           const product = await db.Product.findAll({
             include: [
               {
                 model: db.Category,
                 attributes: ["categoryName"],
+              },
+              {
+                model: db.ProductSize,
+                attributes: ["size", "quantity"],
               },
             ],
           });
@@ -235,6 +331,10 @@ const editProductInage = (data, image) => {
               model: db.Category,
               attributes: ["categoryName"],
             },
+            {
+              model: db.ProductSize,
+              attributes: ["size", "quantity"],
+            },
           ],
         });
 
@@ -269,6 +369,8 @@ const deleteProduct = (id) => {
         });
       }
 
+      await Promise.all([deleteProductSize(id)]);
+
       const result = await db.Product.destroy({
         where: { id: id },
       });
@@ -280,6 +382,10 @@ const deleteProduct = (id) => {
             {
               model: db.Category,
               attributes: ["categoryName"],
+            },
+            {
+              model: db.ProductSize,
+              attributes: ["size", "quantity"],
             },
           ],
         });

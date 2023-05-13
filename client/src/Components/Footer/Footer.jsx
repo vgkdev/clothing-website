@@ -194,7 +194,7 @@ const Footer = () => {
                   textColor={"#000000"}
                   _hover={{ color: "#000000", cursor: "pointer" }}
                 >
-                  <Link to={"/treatment"}>Sản phẩm đặc trị</Link>
+                  <Link to={"/shirt"}>Sản phẩm đặc trị</Link>
                 </ListItem>
                 <ListItem
                   textColor={"#000000"}

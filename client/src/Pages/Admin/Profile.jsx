@@ -58,13 +58,13 @@ import {
 } from "../../api/productApi";
 
 import { Buffer } from "buffer";
-import FormProduct from "./Comp/FromProduct";
+import FormProduct from "./Comp/FormProduct";
 import { getAllCartsService } from "../../api/cartApi";
 import {
   deleteOrderService,
   editOrderService,
   getAllOrdersService,
-} from "../../api/ortherApi";
+} from "../../api/orderApi";
 import FormOrder from "./Comp/FormOrder";
 import Revenue from "./Revenue";
 
@@ -310,7 +310,7 @@ export const Profile = () => {
         const base64String = new Buffer(buffer, "base64").toString("base64");
         products[i].imageUrl = base64String;
       }
-      // console.log("check products: ", products);
+      console.log("check products: ", products);
       setProducts(products);
       printS(response.data.message);
     } else {

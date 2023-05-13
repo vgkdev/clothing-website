@@ -16,6 +16,8 @@ import {
 import React from "react";
 import { FaTrash, FaEdit, FaImage } from "react-icons/fa";
 import { convertPrice } from "../../../Utils/convertData";
+import { FaCheck } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
 
 const ProductComp = ({
   handleDeleteProduct,
@@ -34,8 +36,13 @@ const ProductComp = ({
               <Th>Tên sản phẩm</Th>
               <Th>Tên danh mục</Th>
               <Th>Ảnh</Th>
-              <Th>Số lượng</Th>
+              <Th>Tổng số lượng</Th>
+              <Th>Số lượng size S</Th>
+              <Th>Số lượng size M</Th>
+              <Th>Số lượng size L</Th>
               <Th>Giá</Th>
+              <Th>Giảm giá</Th>
+              <Th>Sản phẩm mới</Th>
               <Th>Quản lý</Th>
             </Tr>
           </Thead>
@@ -53,7 +60,16 @@ const ProductComp = ({
                   />
                 </Td>
                 <Td>{item.quantity}</Td>
+                <Td>{item.ProductSizes[0]?.quantity}</Td>
+                <Td>{item.ProductSizes[1]?.quantity}</Td>
+                <Td>{item.ProductSizes[2]?.quantity}</Td>
                 <Td>{convertPrice(item.price)}</Td>
+                <Td textColor={"red"}>
+                  {item.sale ? <FaCheck /> : <ImCross />}
+                </Td>
+                <Td textColor={"red"}>
+                  {item.newProduct ? <FaCheck /> : <ImCross />}
+                </Td>
 
                 <Td>
                   <IconButton

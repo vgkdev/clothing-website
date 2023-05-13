@@ -42,6 +42,7 @@ const createNewOrder = (data) => {
             await db.OrderDetail.create({
               orderId: result.id,
               productId: value.productId,
+              size: value.size,
               quantity: value.quantity,
             });
           });

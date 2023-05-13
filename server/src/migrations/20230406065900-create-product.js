@@ -33,6 +33,12 @@ module.exports = {
       price: {
         type: Sequelize.FLOAT,
       },
+      sale: {
+        type: Sequelize.BOOLEAN,
+      },
+      newProduct: {
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
