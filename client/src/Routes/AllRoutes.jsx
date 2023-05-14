@@ -19,6 +19,7 @@ import UpdateUserInfo from "../Pages/Home/UpdateUserInfo";
 import PaymentSuccess from "../Pages/Home/PaymentSuccess";
 import { NewProducts } from "../Pages/Home/NewProducts";
 import { SaleProducts } from "../Pages/Home/SaleProducts";
+import Campaign from "../Pages/Home/Campaign";
 
 const AllRoutes = () => {
   const user = useSelector((state) => state.user.user);
@@ -45,6 +46,7 @@ const AllRoutes = () => {
       <Route path="/dress" element={<Dress />}></Route>
       <Route path="/accessory" element={<Accessory />}></Route>
       <Route path="/payment" element={<PaymentPage />}></Route>
+      <Route path="/campaign" element={<Campaign />}></Route>
       <Route path="/payment-success" element={<PaymentSuccess />}></Route>
     </Routes>
   );

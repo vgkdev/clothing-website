@@ -120,6 +120,12 @@ export const BottomNav = (props) => {
           PHỤ KIỆN <IoIosArrowDown />
         </div>
 
+        <Link to="/campaign">
+          <div id="cart" style={{ color: "#777777" }}>
+            Campaign
+          </div>
+        </Link>
+
         <Link to="/products">
           <div id="cart" style={{ color: "#777777" }}>
             <GiClothes /> Tất cả sản phẩm
