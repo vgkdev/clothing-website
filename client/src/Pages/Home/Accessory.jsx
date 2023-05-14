@@ -15,23 +15,21 @@ import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { MainProducts } from "../../Components/MainProducts";
-import Loading from "../../Components/Loading";
 import { animateScroll as scroll } from "react-scroll";
 
-const Serum = () => {
+const Accessory = () => {
   const [products, setProducts] = useState([]);
-  const { token } = JSON.parse(localStorage.getItem("UserToken")) || false;
 
   const categories = useSelector((state) => state.categories.categories);
 
   useEffect(() => {
     scroll.scrollToTop();
-    const serumProducts = categories.filter((value) => {
-      return value.categoryName === "Quần";
+    const personalCareProducts = categories.filter((value) => {
+      return value.categoryName === "Phụ kiện";
     });
-    setProducts(serumProducts[0].Products);
+    setProducts(personalCareProducts[0].Products);
   }, [categories]);
-  console.log("check data from Serum: ", categories);
+  console.log("check products: ", products);
 
   return (
     <Box p={5}>
@@ -42,7 +40,7 @@ const Serum = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        Quần
+        Phụ kiện
       </Text>
 
       <Wrap justify="center" my={"16"}>
@@ -65,4 +63,4 @@ const Serum = () => {
     </Box>
   );
 };
-export default Serum;
+export default Accessory;

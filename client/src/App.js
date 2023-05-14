@@ -115,7 +115,7 @@ function App() {
                 color="black"
               >
                 <Link to="/cart">
-                  <Text>My Cart</Text>{" "}
+                  <Text>Giỏ hàng</Text>{" "}
                 </Link>
               </Button>
             </Box>
@@ -131,33 +131,33 @@ function App() {
                   {" "}
                   <MenuItem /* onClick={()=>toggleClick("home")} */>
                     {" "}
-                    Home
+                    Trang chủ
                   </MenuItem>{" "}
                 </Link>
                 <Link to={"/login"}>
                   {" "}
                   <MenuItem /* onClick={()=>toggleClick("about")} */ /* bgColor={yellow} */
                   >
-                    Login
+                    Đăng nhập
                   </MenuItem>{" "}
                 </Link>
                 <Link to={"/signup"}>
                   <MenuItem /* onClick={()=>toggleClick("skills")} */>
-                    Signup
+                    Đăng ký
                   </MenuItem>{" "}
                 </Link>
                 <Link to={"/admin"}>
                   {" "}
                   <MenuItem /* onClick={()=>toggleClick("projects")} */ /* bgColor={yellow} */
                   >
-                    Admin
+                    Quản lý
                   </MenuItem>{" "}
                 </Link>
                 <Link to={"/cart"}>
                   {" "}
                   <MenuItem /* onClick={()=>toggleClick("contact")} */>
                     {" "}
-                    Cart
+                    Giỏ hàng
                   </MenuItem>{" "}
                 </Link>
               </MenuList>

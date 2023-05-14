@@ -188,7 +188,7 @@ export const BottomNav = (props) => {
           state={skin}
           setState={setSkin}
           setnav={setDropDownSkin}
-          path={"/skin"}
+          path={"/pant"}
         />
       )}
 
@@ -198,7 +198,7 @@ export const BottomNav = (props) => {
           state={clean}
           setState={setClean}
           setnav={setDropDownClean}
-          path={"/clean"}
+          path={"/dress"}
         />
       )}
 
@@ -210,7 +210,7 @@ export const BottomNav = (props) => {
             state={pcare}
             setState={setPcare}
             setnav={setDropDownPersonalCare}
-            path={"/personal-care"}
+            path={"/accessory"}
           />
         )}
     </div>

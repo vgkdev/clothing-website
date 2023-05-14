@@ -108,7 +108,7 @@ const Home = () => {
                 src={pantIcon}
               />
             </Box>
-            <NavLink to="/skin">
+            <NavLink to="/shirt">
               <Box>
                 <Text fontSize={["12px", "12px", "15px"]}>Quần</Text>
               </Box>
@@ -125,7 +125,7 @@ const Home = () => {
                 src={dressIcon}
               />
             </Box>
-            <NavLink to="/clean">
+            <NavLink to="/pant">
               <Box>
                 <Text fontSize={["12px", "12px", "15px"]}>Đầm</Text>
               </Box>
@@ -142,7 +142,7 @@ const Home = () => {
                 src={earringIcon}
               />
             </Box>
-            <NavLink to="/personal-care">
+            <NavLink to="/accessory">
               <Box>
                 <Text fontSize={["12px", "12px", "15px"]}>Phụ kiện</Text>
               </Box>
@@ -269,7 +269,7 @@ const Home = () => {
             </Text>
           </Box>
 
-          <Box cursor={"pointer"} onClick={() => navigate("/association")}>
+          <Box cursor={"pointer"} onClick={() => navigate("/accessory")}>
             <Image
               // width={["69%", "68%", "78%"]}
               // border={"1px solid red"}
@@ -305,10 +305,10 @@ const Home = () => {
         <Flex
           justifyContent={"space-around"}
           alignItems="center"
-          direction={{ base: "column", lg: "row" }}
+          direction={{ base: "column", md: "row", lg: "row" }}
           my={5}
         >
-          <Box cursor={"pointer"} onClick={() => navigate("/shirt")}>
+          <Box cursor={"pointer"} onClick={() => navigate("/new-products")}>
             <Image
               // width={["69%", "68%", "78%"]}
               // border={"1px solid red"}
@@ -331,7 +331,7 @@ const Home = () => {
             </Text>
           </Box>
 
-          <Box cursor={"pointer"} onClick={() => navigate("/shirt")}>
+          <Box cursor={"pointer"} onClick={() => navigate("/sale-products")}>
             <Image
               // width={["69%", "68%", "78%"]}
               // border={"1px solid red"}

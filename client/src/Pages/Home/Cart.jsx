@@ -156,12 +156,12 @@ const Cart = () => {
   const handlePayment = () => {
     if (cartData && cartData.length !== 0) {
       for (let i = 0; i < cartData.length; i++) {
-        if (cartData[i].Product.quantity < cartData[i].quantity) {
-          toast.error(
-            `Số lượng sản phẩm hiện tại không đủ, xin bạn giảm bớt số lượng sản phẩm ${cartData[i].Product.productName} !`
-          );
-          return;
-        }
+        // if (cartData[i].Product.quantity < cartData[i].quantity) {
+        //   toast.error(
+        //     `Số lượng sản phẩm hiện tại không đủ, xin bạn giảm bớt số lượng sản phẩm ${cartData[i].Product.productName} !`
+        //   );
+        //   return;
+        // }
       }
       navigate("/payment");
     } else {
@@ -216,7 +216,7 @@ const Cart = () => {
               <Spacer />{" "}
               <ArrowRightIcon
                 cursor={"pointer"}
-                onClick={() => navigate("/skin")}
+                onClick={() => navigate("/shirt")}
               />
             </HStack>
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "./Products.css";
-import { MainProducts } from "../MainProducts";
+// import "./Products.css";
+import { MainProducts } from "../../Components/MainProducts";
 import { useSelector } from "react-redux";
 import { Box, Text, Wrap, SimpleGrid, Button, Flex } from "@chakra-ui/react";
-import Loading from "../Loading";
+import Loading from "../../Components/Loading";
+import { animateScroll as scroll } from "react-scroll";
 
-const Products = () => {
+const NewProducts = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortPrice, setSortPrice] = useState(null);
@@ -15,19 +16,18 @@ const Products = () => {
   const products = useSelector((state) => state.products.products);
 
   useEffect(() => {
+    scroll.scrollToTop();
     setTimeout(() => {
-      setData(getAllProducts(categories));
+      setData(getAllProducts(products));
       setLoading(false);
     }, [1000]);
-  }, [categories]);
+  }, [products]);
 
   const getAllProducts = (data) => {
-    const allProducts = data
-      .map((category) => category.Products)
-      .flatMap((products) => products);
-    return allProducts;
+    const newProducts = data.filter((el) => el.newProduct === true);
+    return newProducts;
   };
-  // console.log("check all products: ", products);
+  console.log("check data: ", data);
 
   const sortProductsByPrice = () => {
     let sortedData = [...data];
@@ -38,7 +38,7 @@ const Products = () => {
       sortedData.sort((a, b) => b.price - a.price); // Sắp xếp giảm dần
       setSortPrice(false);
     } else {
-      sortedData = getAllProducts(categories); // Khôi phục danh sách sản phẩm ban đầu
+      sortedData = getAllProducts(products); // Khôi phục danh sách sản phẩm ban đầu
       setSortPrice(null);
     }
     setData(sortedData);
@@ -54,7 +54,7 @@ const Products = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        Tất cả sản phẩm
+        Tất cả sản phẩm mới
       </Text>
 
       <Flex justifyContent={"end"} px={5}>
@@ -110,4 +110,4 @@ const Products = () => {
     </Box>
   );
 };
-export { Products };
+export { NewProducts };

@@ -17,17 +17,18 @@ import { useSelector } from "react-redux";
 import { MainProducts } from "../../Components/MainProducts";
 import { animateScroll as scroll } from "react-scroll";
 
-const PersonalCare = () => {
+const Shirt = () => {
   const [products, setProducts] = useState([]);
+  const { token } = JSON.parse(localStorage.getItem("UserToken")) || false;
 
   const categories = useSelector((state) => state.categories.categories);
 
   useEffect(() => {
     scroll.scrollToTop();
-    const personalCareProducts = categories.filter((value) => {
-      return value.categoryName === "Phụ kiện";
+    const skinProducts = categories.filter((value) => {
+      return value.categoryName === "Áo";
     });
-    setProducts(personalCareProducts[0].Products);
+    setProducts(skinProducts[0].Products);
   }, [categories]);
   console.log("check products: ", products);
 
@@ -40,7 +41,7 @@ const PersonalCare = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        Phụ kiện
+        Áo
       </Text>
 
       <Wrap justify="center" my={"16"}>
@@ -63,4 +64,4 @@ const PersonalCare = () => {
     </Box>
   );
 };
-export default PersonalCare;
+export default Shirt;

@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { MainProducts } from "../../Components/MainProducts";
 import { animateScroll as scroll } from "react-scroll";
 
-const Clean = () => {
+const Dress = () => {
   const [products, setProducts] = useState([]);
 
   const categories = useSelector((state) => state.categories.categories);
@@ -63,4 +63,4 @@ const Clean = () => {
     </Box>
   );
 };
-export default Clean;
+export default Dress;

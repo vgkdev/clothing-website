@@ -5,4 +5,8 @@ const createPaymentService = (data) => {
   return axios.post(`${dataUrl}/create-payment`, data);
 };
 
-export { createPaymentService };
+const callbackPaymentService = () => {
+  return axios.get(`${dataUrl}/return-payment`);
+};
+
+export { createPaymentService, callbackPaymentService };

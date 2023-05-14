@@ -15,9 +15,10 @@ import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { MainProducts } from "../../Components/MainProducts";
+import Loading from "../../Components/Loading";
 import { animateScroll as scroll } from "react-scroll";
 
-const Skin = () => {
+const Pant = () => {
   const [products, setProducts] = useState([]);
   const { token } = JSON.parse(localStorage.getItem("UserToken")) || false;
 
@@ -25,12 +26,12 @@ const Skin = () => {
 
   useEffect(() => {
     scroll.scrollToTop();
-    const skinProducts = categories.filter((value) => {
-      return value.categoryName === "Áo";
+    const serumProducts = categories.filter((value) => {
+      return value.categoryName === "Quần";
     });
-    setProducts(skinProducts[0].Products);
+    setProducts(serumProducts[0].Products);
   }, [categories]);
-  console.log("check products: ", products);
+  console.log("check data from Pant: ", categories);
 
   return (
     <Box p={5}>
@@ -41,7 +42,7 @@ const Skin = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        Áo
+        Quần
       </Text>
 
       <Wrap justify="center" my={"16"}>
@@ -64,4 +65,4 @@ const Skin = () => {
     </Box>
   );
 };
-export default Skin;
+export default Pant;

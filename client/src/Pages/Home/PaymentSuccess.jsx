@@ -10,6 +10,8 @@ import { createNewOrderService } from "../../api/orderApi";
 import { toast } from "react-toastify";
 import { Buffer } from "buffer";
 import { editProductService } from "../../api/productApi";
+import { callbackPaymentService } from "../../api/paymentApi";
+import axios from "axios";
 
 const PaymentSuccess = () => {
   const user = useSelector((state) => state.user.user);
@@ -29,7 +31,30 @@ const PaymentSuccess = () => {
   useEffect(() => {
     setTimeout(() => {
       getCartData();
+      callbackPayment();
     }, [1000]);
+
+    const callbackPayment = async () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      const queryParams = Object.fromEntries(searchParams.entries());
+      try {
+        axios
+          .get("http://localhost:8080/api/v1/return-payment", {
+            params: queryParams,
+          })
+          .then((response) => {
+            const paymentStatus = response.data;
+            if (paymentStatus === "success") {
+              console.log("success");
+            } else {
+              console.log("fail");
+            }
+          });
+      } catch (error) {
+        console.log("Error:", error);
+        // Handle error
+      }
+    };
 
     const getCartData = async () => {
       if (user && user.id) {

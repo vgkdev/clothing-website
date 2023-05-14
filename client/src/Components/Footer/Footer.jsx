@@ -200,19 +200,19 @@ const Footer = () => {
                   textColor={"#000000"}
                   _hover={{ color: "#000000", cursor: "pointer" }}
                 >
-                  <Link to={"/skin"}>Dưỡng da</Link>
+                  <Link to={"/pant"}>Dưỡng da</Link>
                 </ListItem>
                 <ListItem
                   textColor={"#000000"}
                   _hover={{ color: "#000000", cursor: "pointer" }}
                 >
-                  <Link to={"/clean"}>Làm sạch</Link>
+                  <Link to={"/dress"}>Làm sạch</Link>
                 </ListItem>
                 <ListItem
                   textColor={"#000000"}
                   _hover={{ color: "#000000", cursor: "pointer" }}
                 >
-                  <Link to={"/personal-care"}>Thực phẩm chức năng</Link>
+                  <Link to={"/accessory"}>Thực phẩm chức năng</Link>
                 </ListItem>
               </UnorderedList>
             </Box>
