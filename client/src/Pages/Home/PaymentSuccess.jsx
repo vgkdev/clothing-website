@@ -14,6 +14,8 @@ import { callbackPaymentService } from "../../api/paymentApi";
 import axios from "axios";
 
 const PaymentSuccess = () => {
+  const [paymentSuccess, setPaymentSuccess] = useState(null);
+
   const user = useSelector((state) => state.user.user);
   const loading = useSelector((state) => state.user.loading);
 
@@ -37,23 +39,30 @@ const PaymentSuccess = () => {
     const callbackPayment = async () => {
       const searchParams = new URLSearchParams(window.location.search);
       const queryParams = Object.fromEntries(searchParams.entries());
-      try {
-        axios
-          .get("http://localhost:8080/api/v1/return-payment", {
-            params: queryParams,
-          })
-          .then((response) => {
-            const paymentStatus = response.data;
-            if (paymentStatus === "success") {
-              console.log("success");
-            } else {
-              console.log("fail");
-            }
-          });
-      } catch (error) {
-        console.log("Error:", error);
-        // Handle error
+      console.log("check query: ", queryParams);
+      if (queryParams.vnp_TransactionStatus === "00") {
+        // handleOrder();
+        setPaymentSuccess(true);
+      } else {
+        setPaymentSuccess(false);
       }
+      // try {
+      //   axios
+      //     .get("http://localhost:8080/api/v1/return-payment", {
+      //       params: queryParams,
+      //     })
+      //     .then((response) => {
+      //       const paymentStatus = response.data;
+      //       if (paymentStatus === "success") {
+      //         console.log("success");
+      //       } else {
+      //         console.log("fail");
+      //       }
+      //     });
+      // } catch (error) {
+      //   console.log("Error:", error);
+      //   // Handle error
+      // }
     };
 
     const getCartData = async () => {
@@ -92,19 +101,52 @@ const PaymentSuccess = () => {
     };
 
     const response = await createNewOrderService(payload);
-    console.log("check res: ", response.data.order);
+    // console.log("check res: ", response.data.order);
     if (response.data.errCode === 0) {
+      // try {
+      //   await deleteCartByUserIdService(user.id);
+      //   for (let i = 0; i < cartData.length; i++) {
+      //     await editProductService({
+      //       id: cartData[i].Product.id,
+      //       newProductName: cartData[i].Product.productName,
+      //       productName: cartData[i].Product.productName,
+      //       categoryId: cartData[i].Product.categoryId,
+      //       quantity: cartData[i].Product.quantity - cartData[i].quantity,
+      //       price: cartData[i].Product.price,
+      //       description: cartData[i].Product.description,
+      //     });
+      //   }
+      // } catch (e) {
+      //   console.log(e);
+      //   toast.error(e);
+      // }
       try {
         await deleteCartByUserIdService(user.id);
         for (let i = 0; i < cartData.length; i++) {
+          const sizeOfProductCart = cartData[i].size;
+          console.log("check size: ", sizeOfProductCart);
+          const index =
+            sizeOfProductCart === "S" ? 0 : sizeOfProductCart === "M" ? 1 : 2;
+
           await editProductService({
             id: cartData[i].Product.id,
             newProductName: cartData[i].Product.productName,
             productName: cartData[i].Product.productName,
             categoryId: cartData[i].Product.categoryId,
-            quantity: cartData[i].Product.quantity - cartData[i].quantity,
+            // quantity: cartData[i].Product.quantity - cartData[i].quantity,
+            numberOfSizeS:
+              cartData[i].Product.ProductSizes[0].quantity -
+              cartData[i].quantity * (cartData[i].size === "S"),
+            numberOfSizeM:
+              cartData[i].Product.ProductSizes[1].quantity -
+              cartData[i].quantity * (cartData[i].size === "M"),
+            numberOfSizeL:
+              cartData[i].Product.ProductSizes[2].quantity -
+              cartData[i].quantity * (cartData[i].size === "L"),
             price: cartData[i].Product.price,
             description: cartData[i].Product.description,
+            sale: cartData[i].Product.sale,
+            newProduct: cartData[i].Product.newProduct,
           });
         }
       } catch (e) {
@@ -120,7 +162,8 @@ const PaymentSuccess = () => {
   if (
     cartData.length !== 0 &&
     total !== 0 &&
-    checkCreateOrder.current === false
+    checkCreateOrder.current === false &&
+    paymentSuccess === true
   ) {
     console.log("check cart data: ", cartData);
     handleOrder();
@@ -128,13 +171,22 @@ const PaymentSuccess = () => {
 
   return (
     <Box textAlign="center" my={20}>
-      <Text fontSize="2xl" fontWeight="bold" color="green.500">
-        Bạn đã thanh toán thành công
-      </Text>
-
-      <Button mt={5} onClick={() => navigate("/")} colorScheme="blue">
-        Quay lại trang chủ
-      </Button>
+      {paymentSuccess !== null && (
+        <>
+          <Text
+            fontSize="2xl"
+            fontWeight="bold"
+            color={paymentSuccess ? "green.500" : "red.500"}
+          >
+            {paymentSuccess
+              ? " Bạn đã thanh toán thành công"
+              : "Bạn đã thanh toán không thành công"}
+          </Text>
+          <Button mt={5} onClick={() => navigate("/")} colorScheme="blue">
+            Quay lại trang chủ
+          </Button>
+        </>
+      )}
     </Box>
   );
 };

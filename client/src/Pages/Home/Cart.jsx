@@ -30,6 +30,7 @@ import {
 } from "../../api/cartApi";
 import { Buffer } from "buffer";
 import { convertPrice } from "../../Utils/convertData";
+import { getIndexSize } from "../../Utils/getData";
 
 const Cart = () => {
   const [cartData, setCartData] = useState([]);
@@ -156,12 +157,15 @@ const Cart = () => {
   const handlePayment = () => {
     if (cartData && cartData.length !== 0) {
       for (let i = 0; i < cartData.length; i++) {
-        // if (cartData[i].Product.quantity < cartData[i].quantity) {
-        //   toast.error(
-        //     `Số lượng sản phẩm hiện tại không đủ, xin bạn giảm bớt số lượng sản phẩm ${cartData[i].Product.productName} !`
-        //   );
-        //   return;
-        // }
+        if (
+          cartData[i].Product.ProductSizes[getIndexSize(cartData[i].size)]
+            .quantity < cartData[i].quantity
+        ) {
+          toast.error(
+            `Số lượng sản phẩm hiện tại không đủ, xin bạn giảm bớt số lượng sản phẩm ${cartData[i].Product.productName} !`
+          );
+          return;
+        }
       }
       navigate("/payment");
     } else {

@@ -50,7 +50,7 @@ const Footer = () => {
                   textColor={"#000000"}
                   _hover={{ color: "#000000", cursor: "pointer" }}
                 >
-                  heshi.com <br />
+                  magentavintage.vn <br />
                 </Text>
                 <Text
                   textColor={"#000000"}
@@ -194,25 +194,25 @@ const Footer = () => {
                   textColor={"#000000"}
                   _hover={{ color: "#000000", cursor: "pointer" }}
                 >
-                  <Link to={"/shirt"}>Sản phẩm đặc trị</Link>
+                  <Link to={"/shirt"}>Áo</Link>
                 </ListItem>
                 <ListItem
                   textColor={"#000000"}
                   _hover={{ color: "#000000", cursor: "pointer" }}
                 >
-                  <Link to={"/pant"}>Dưỡng da</Link>
+                  <Link to={"/pant"}>Quần</Link>
                 </ListItem>
                 <ListItem
                   textColor={"#000000"}
                   _hover={{ color: "#000000", cursor: "pointer" }}
                 >
-                  <Link to={"/dress"}>Làm sạch</Link>
+                  <Link to={"/dress"}>Đầm</Link>
                 </ListItem>
                 <ListItem
                   textColor={"#000000"}
                   _hover={{ color: "#000000", cursor: "pointer" }}
                 >
-                  <Link to={"/accessory"}>Thực phẩm chức năng</Link>
+                  <Link to={"/accessory"}>Phụ kiện</Link>
                 </ListItem>
               </UnorderedList>
             </Box>

@@ -10,56 +10,56 @@ const createNewOrder = (data) => {
           errCode: 1,
           message: "Missing paremeter !",
         });
-      }
-
-      const result = await db.Order.create({
-        userId: userId,
-        status: status,
-        totalPrice: totalPrice,
-      });
-
-      if (result) {
-        console.log(">>>check result create order: ", result.id);
-        const order = await db.Order.findAll({
-          include: [
-            {
-              model: db.User,
-              attributes: { exclude: ["password"] },
-            },
-            {
-              model: db.OrderDetail,
-              include: [
-                {
-                  model: db.Product,
-                },
-              ],
-            },
-          ],
-        });
-
-        try {
-          cartData.map(async (value, index) => {
-            await db.OrderDetail.create({
-              orderId: result.id,
-              productId: value.productId,
-              size: value.size,
-              quantity: value.quantity,
-            });
-          });
-        } catch (e) {
-          console.log(e);
-        }
-
-        resolve({
-          errCode: 0,
-          message: "Create new order successfully",
-          order,
-        });
       } else {
-        resolve({
-          errCode: 6,
-          message: "Server create order error !",
+        const result = await db.Order.create({
+          userId: userId,
+          status: status,
+          totalPrice: totalPrice,
         });
+
+        if (result) {
+          console.log(">>>check result create order: ", result.id);
+          const order = await db.Order.findAll({
+            include: [
+              {
+                model: db.User,
+                attributes: { exclude: ["password"] },
+              },
+              {
+                model: db.OrderDetail,
+                include: [
+                  {
+                    model: db.Product,
+                  },
+                ],
+              },
+            ],
+          });
+
+          try {
+            cartData.map(async (value, index) => {
+              await db.OrderDetail.create({
+                orderId: result.id,
+                productId: value.productId,
+                size: value.size,
+                quantity: value.quantity,
+              });
+            });
+          } catch (e) {
+            console.log(e);
+          }
+
+          resolve({
+            errCode: 0,
+            message: "Create new order successfully",
+            order,
+          });
+        } else {
+          resolve({
+            errCode: 6,
+            message: "Server create order error !",
+          });
+        }
       }
     } catch (e) {
       console.log("Error: ", e);
