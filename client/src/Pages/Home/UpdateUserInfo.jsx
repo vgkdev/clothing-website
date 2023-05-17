@@ -38,8 +38,10 @@ const UpdateUserInfo = () => {
     }
   };
 
+  console.log("check loading: ", user);
+
   return (
-    <Stack my={10}>
+    <Stack my={10} spacing={5} p={3}>
       <VStack spacing={5}>
         <div className="input_div_main">
           <div>
@@ -74,7 +76,6 @@ const UpdateUserInfo = () => {
                   />
                 </div>
               </div>
-
               <div className="input_details">
                 <label>
                   Email<span> *</span>
@@ -117,7 +118,6 @@ const UpdateUserInfo = () => {
                   required
                 />
               </div>
-
               <Divider borderColor={"silver"} my={5} />
               <Button
                 isLoading={loading}

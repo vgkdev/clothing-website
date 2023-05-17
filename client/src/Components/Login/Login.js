@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { loginUserService } from "../../api/userApi";
-import { Button, Input } from "@chakra-ui/react";
+import { Button, Flex, Input } from "@chakra-ui/react";
 import { loginUser } from "../../reducers/user";
 
 export default function Login() {
@@ -56,7 +56,11 @@ export default function Login() {
   };
   return (
     <div>
-      <div className="input_div_main">
+      <Flex
+        p={5}
+        direction={{ base: "column", md: "row", lg: "row" }}
+        className="input_div_main"
+      >
         {/* sign in */}
         <div className="input_div">
           <div className="input_heading">ĐĂNG NHẬP</div>
@@ -91,12 +95,10 @@ export default function Login() {
             />
           </div>
 
-          <div className="input_button">
-            <Button colorScheme="blue" onClick={onLogin}>
-              ĐĂNG NHẬP
-            </Button>
-            {/* <a href="#">Forgot Your Password?</a> */}
-          </div>
+          <Button my={5} colorScheme="blue" onClick={onLogin}>
+            ĐĂNG NHẬP
+          </Button>
+          {/* <a href="#">Forgot Your Password?</a> */}
         </div>
         {/* end sign in */}
 
@@ -108,14 +110,15 @@ export default function Login() {
             Tạo một tài khoản có nhiều lợi ích: kiểm tra nhanh hơn, theo dõi đơn
             đặt hàng và hơn thế nữa.
           </div>
-          <div className="input_button">
-            <Link to="/signup">
-              <Button colorScheme="blue">TẠO MỘT TÀI KHOẢN</Button>
-            </Link>
-          </div>
+
+          <Link to="/signup">
+            <Button my={5} colorScheme="blue">
+              TẠO MỘT TÀI KHOẢN
+            </Button>
+          </Link>
         </div>
         {/* end create account */}
-      </div>
+      </Flex>
       <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );

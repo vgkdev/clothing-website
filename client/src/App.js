@@ -11,7 +11,7 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./App.css";
 import Navimag from "./Components/NavBar/beautybebo_logo.png";
 import Drop from "./Components/Dropcde/Drop";
@@ -32,19 +32,23 @@ import { fetchCategories } from "./reducers/categories";
 import Loading from "./Components/Loading";
 import { setProducts } from "./reducers/products";
 import { ToastContainer } from "react-toastify";
-import { verifyUser } from "./reducers/user";
+import { logoutUser, verifyUser } from "./reducers/user";
 
 function App() {
   const { smallScreen, mediumScreen } = useMedia();
 
+  const [loginDropDown, setloginDropDown] = useState(false);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const categories = useSelector((state) => state.categories.categories);
   const loading = useSelector((state) => state.categories.loading);
   const error = useSelector((state) => state.categories.error);
-
-  const userToken = JSON.parse(localStorage.getItem("UserToken"));
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
+    const userToken = JSON.parse(localStorage.getItem("UserToken"));
     if (userToken) {
       dispatch(
         verifyUser({
@@ -53,7 +57,7 @@ function App() {
         })
       );
     }
-  }, [userToken, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -126,40 +130,103 @@ function App() {
                 icon={<HamburgerIcon />}
                 variant="outline"
               />
-              <MenuList>
+              {/* <MenuList>
                 <Link to={"/"}>
                   {" "}
-                  <MenuItem /* onClick={()=>toggleClick("home")} */>
+                  <MenuItem >
                     {" "}
                     Trang chủ
                   </MenuItem>{" "}
                 </Link>
                 <Link to={"/login"}>
                   {" "}
-                  <MenuItem /* onClick={()=>toggleClick("about")} */ /* bgColor={yellow} */
+                  <MenuItem 
                   >
                     Đăng nhập
                   </MenuItem>{" "}
                 </Link>
                 <Link to={"/signup"}>
-                  <MenuItem /* onClick={()=>toggleClick("skills")} */>
+                  <MenuItem>
                     Đăng ký
                   </MenuItem>{" "}
                 </Link>
                 <Link to={"/admin"}>
                   {" "}
-                  <MenuItem /* onClick={()=>toggleClick("projects")} */ /* bgColor={yellow} */
+                  <MenuItem
                   >
                     Quản lý
                   </MenuItem>{" "}
                 </Link>
                 <Link to={"/cart"}>
                   {" "}
-                  <MenuItem /* onClick={()=>toggleClick("contact")} */>
+                  <MenuItem >
                     {" "}
                     Giỏ hàng
                   </MenuItem>{" "}
                 </Link>
+              </MenuList> */}
+              <MenuList>
+                {user ? (
+                  <>
+                    <MenuItem onClick={() => navigate("/")}>Trang chủ</MenuItem>
+                    <MenuItem onClick={() => navigate("/cart")}>
+                      Giỏ hàng
+                    </MenuItem>
+                    <MenuItem
+                      minH="40px"
+                      // id="register_dropdown"
+                      backgroundColor={"none"}
+                      onClick={() => {
+                        setloginDropDown(!loginDropDown);
+                        localStorage.removeItem("UserToken");
+                        dispatch(logoutUser());
+                        navigate("/");
+                      }}
+                    >
+                      Đăng xuất
+                    </MenuItem>
+                    <MenuItem
+                      minH="40px"
+                      // id="register_dropdown"
+                      backgroundColor={"none"}
+                      onClick={() => {
+                        navigate("/update-user");
+                      }}
+                    >
+                      Cập nhật thông tin
+                    </MenuItem>
+
+                    {user.role == 1 && (
+                      <MenuItem
+                        minH="40px"
+                        // id="register_dropdown"
+                        backgroundColor={"none"}
+                        onClick={() => navigate("/admin")}
+                      >
+                        Quản lý
+                      </MenuItem>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login">
+                      <MenuItem
+                        minH="40px"
+                        onClick={() => setloginDropDown(!loginDropDown)}
+                      >
+                        Đăng nhập
+                      </MenuItem>
+                    </Link>
+                    <Link to="/signup">
+                      <MenuItem
+                        minH="40px"
+                        onClick={() => setloginDropDown(!loginDropDown)}
+                      >
+                        Đăng ký
+                      </MenuItem>
+                    </Link>
+                  </>
+                )}
               </MenuList>
             </Menu>
           </Flex>

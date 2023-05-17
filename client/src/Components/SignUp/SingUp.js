@@ -4,7 +4,7 @@ import { dataUrl } from "../../share";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { Button, Input } from "@chakra-ui/react";
+import { Button, Input, Stack, VStack } from "@chakra-ui/react";
 import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
@@ -50,8 +50,8 @@ export default function SingUp() {
     }
   };
   return (
-    <div>
-      <div className="input_div_main">
+    <Stack my={10} spacing={5} p={3}>
+      <VStack spacing={5}>
         <div className="input_div">
           <div className="input_heading">THÔNG TIN CÁ NHÂN</div>
 
@@ -155,13 +155,13 @@ export default function SingUp() {
               />
             </div>
 
-            <div className="input_button">
-              <button onClick={onsubmit}>TẠO TÀI KHOẢN</button>
-            </div>
+            <Button my={5} colorScheme="whatsapp" onClick={onsubmit}>
+              TẠO TÀI KHOẢN
+            </Button>
           </form>
         </div>
-      </div>
+      </VStack>
       <ToastContainer position="top-center" autoClose={3000} />
-    </div>
+    </Stack>
   );
 }

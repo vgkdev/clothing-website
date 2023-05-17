@@ -62,6 +62,19 @@ export const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    verifyStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    verifySuccess: (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+      state.error = null;
+    },
+    verifyFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -76,6 +89,9 @@ export const {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  verifyStart,
+  verifySuccess,
+  verifyFailure,
 } = userSlice.actions;
 
 export const loginUser = (data, toast, navigate) => async (dispatch) => {
@@ -93,15 +109,25 @@ export const loginUser = (data, toast, navigate) => async (dispatch) => {
   }
 };
 
-export const verifyUser = (data) => async (dispatch) => {
-  dispatch(loginStart());
-  const response = await verifyUserService(data);
-  // console.log("check res login user from redux: ", response);
-  if (response.data.errCode === 0) {
-    dispatch(loginSuccess(response.data.user));
-    localStorage.setItem("UserToken", JSON.stringify(response.data.user));
-  } else {
-    dispatch(loginFailure(response.data.message));
+export const verifyUser = (data) => async (dispatch, getState) => {
+  const { loading } = getState().user;
+
+  if (loading) {
+    return;
+  }
+
+  dispatch(verifyStart());
+  try {
+    const response = await verifyUserService(data);
+    // console.log("check res login user from redux: ", response);
+    if (response.data.errCode === 0) {
+      dispatch(verifySuccess(response.data.user));
+      localStorage.setItem("UserToken", JSON.stringify(response.data.user));
+    } else {
+      dispatch(verifyFailure(response.data.message));
+    }
+  } catch (error) {
+    dispatch(verifyFailure("Đã có lỗi xảy ra. Vui lòng thử lại sau."));
   }
 };
 
