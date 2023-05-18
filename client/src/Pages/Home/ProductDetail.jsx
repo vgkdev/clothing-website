@@ -262,11 +262,7 @@ const ProductDetail = () => {
             placeholder="Nhập bình luận của bạn..."
             mb={4}
           />
-          <Button
-            onClick={handleSubmitComment}
-            bgColor={"#ffffff"}
-            color={"#ffffff"}
-          >
+          <Button onClick={handleSubmitComment} colorScheme="whatsapp">
             Gửi
           </Button>
 
